@@ -1,0 +1,41 @@
+
+
+<!--El bloqueo de pantalla con el spinner se podría sacar fuera en un componente para que sea generico,
+   no lo he hecho por falta de tiempo-->
+   <div class="overlay" *ngIf="isSearching">
+    <mat-spinner diameter="50" color="primary"></mat-spinner>
+  </div>
+<!--
+  Se que la clase content-container  y la imagen se repiten y debería sacar a un comonente generico pero no me da tiempo,
+  asi que voy a repetir los estilos y el html para terminar la prueba
+-->
+<div class="content-container">
+  <div class="header-image">
+    <img [src]="'assets/img/nobel-prize.png'" alt="Nobel prize image" />
+  </div>
+  <div fxLayout="column" fxLayout.xs="column" fxLayout.gt-sm="row">
+    <ng-container *ngIf="nobelPrize">
+      <mat-card *ngFor="let laureate of nobelPrize.laureates; let j = index">
+        <mat-card-content>
+          <p><label> Nombre:</label> {{ laureate.knownName }}</p>
+          <p><label> Contribución:</label> {{ laureate.portion }}</p>
+          <p>
+            <label> Motivo: </label>
+            <br />
+            {{ laureate.motivation }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+    </ng-container>
+  </div>
+  <div class="button-row">
+    <button (click)="location.back()"
+      mat-raised-button
+      color="primary"
+      type="text"
+    >
+      Atras
+    </button>
+  </div>
+</div>

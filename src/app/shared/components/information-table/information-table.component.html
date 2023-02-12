@@ -1,0 +1,40 @@
+<table mat-table [dataSource]="items" class="mat-elevation-z8">
+  <ng-container *ngFor="let name of columnNames; let i = index">
+    <ng-container [matColumnDef]="name">
+      <th mat-header-cell *matHeaderCellDef [ngClass]="columnSize[i]">
+        {{ columnTitles[i] }}
+      </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="columnSize[i]">
+        <ng-container *ngIf="element[name].length">
+          <ng-container *ngFor="let subElement of element[name]; let j = index">
+            {{ subElement[property] }}
+            <ng-container *ngIf="j < element[name].length - 1">,</ng-container>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="!element[name].length">
+          {{ element[name] }}
+        </ng-container>
+      </td>
+    </ng-container>
+  </ng-container>
+  <!--Si queremos añadirle una columna extra con icono-->
+  <ng-container [matColumnDef]="iconColumn" class="table-container">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      [ngClass]="columnSize[columnSize.length - 1]"
+    >
+      {{ iconColumnTitle }}
+    </th>
+    <td
+      mat-cell
+      *matCellDef="let element"
+      [ngClass]="columnSize[columnSize.length - 1]"
+    >
+    <mat-icon color="primary" (click)="emitRowSelected(element)">visibility</mat-icon>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

@@ -1,0 +1,15 @@
+
+
+table {
+  width: 100%;
+  }
+
+.small-column {
+
+  width: 20%;
+}
+.big-column {
+
+    width: 60%;
+}
+

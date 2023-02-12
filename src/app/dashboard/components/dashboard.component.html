@@ -1,0 +1,78 @@
+<!--El bloqueo de pantalla con el spinner se podría sacar fuera en un componente para que sea generico,
+   no lo he hecho por falta de tiempo-->
+<div class="overlay" *ngIf="isSearching">
+  <mat-spinner diameter="50" color="primary"></mat-spinner>
+</div>
+
+<div class="content-container">
+  <div class="header-image">
+    <img [src]="'assets/img/nobel-prize.png'" alt="Nobel prize image" />
+  </div>
+  <mat-card class="search-form">
+    <mat-card-title>
+      <h1 class="title">Buscador datos premio nobel</h1>
+    </mat-card-title>
+
+    <form [formGroup]="searchForm" (ngSubmit)="search()">
+      <!--Componente generico para selectores-->
+      <app-select
+        [name]="'category'"
+        [label]="'Categorias'"
+        [items]="categories"
+      >
+      </app-select>
+      <!--Componente generico para el calendario-->
+      <app-year-picker [name]="'fromYear'" [label]="'Ano desde'">
+      </app-year-picker>
+      <app-year-picker [name]="'toYear'" [label]="'Ano hasta'">
+      </app-year-picker>
+
+      <!-- Pintar errores, esto se debería hacer de forma global utilizando una directiva,
+          no lo hago porque no me da tiempo a terminar la prueba, he creado errorFormGroupDirective, pero no esta terminado
+        por lo que no se usa-->
+      <mat-error
+        *ngIf="searchForm.errors?.['yearDiff'] || searchForm.errors?.['fromYearLessThanToYear']"
+      >
+        <span *ngIf="searchForm.errors?.['yearDiff']">
+          La diferencia de años entre años no podrá ser superior a
+          {{ yearDiff }}</span
+        >
+        <span *ngIf="searchForm.errors?.['fromYearLessThanToYear']">
+          Año desde
+          {{ moment(searchForm.controls["fromYear"].value).year() }} no podrá
+          ser superior a año hasta
+          {{ moment(searchForm.controls["toYear"].value).year() }}.
+        </span>
+      </mat-error>
+
+      <!-- Fin pintar errores-->
+      <div class="button-row">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!searchForm.valid"
+          type="submit"
+        >
+          Buscar
+        </button>
+      </div>
+    </form>
+  </mat-card>
+  <mat-card>
+    <!--Componente generico para pintar tablas-->
+    <app-information-table
+      *ngIf="nobelPrizes"
+      [columnTitles]="columnTitles"
+      [columnNames]="columnNames"
+      [items]="nobelPrizes"
+      [displayedColumns]="displayedColumns"
+      [property]="'knownName'"
+      [iconColumn]="'action'"
+      [iconColumnTitle]="'Accion'"
+      [columnSize]="columnSize"
+      (rowSelected)="nobelPriceSelected($event)"
+    ></app-information-table>
+  </mat-card>
+</div>
+
+<router-outlet></router-outlet>

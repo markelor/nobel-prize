@@ -1,0 +1,8 @@
+[
+  { "name": "Literatura", "key": "li" },
+  { "name": "Paz", "key": "pea" },
+  { "name": "Física", "key": "phy" },
+  { "name": "Quimica", "key": "che" },
+  { "name": "Economia", "key": "eco" },
+  { "name": "Medicina", "key": "med" }
+]

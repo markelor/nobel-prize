@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+mat-form-field {
+
+  width: 200px;
+  margin: 10px;
+}
+
+button {
+  margin-top: 20px;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
